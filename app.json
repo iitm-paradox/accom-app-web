@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "a07a1365-0bfe-4a73-a168-129bbd2c2146"
+      }
+    },
+    "android": {
+      "package": "com.uuyhb.workspace"
+    },
+    "owner": "kalidon",
+    "slug": "accom"
+  }
+}
