@@ -55,7 +55,7 @@ function stripProtocol(domain) {
 }
 
 function getDeploymentDomain() {
-  // Replit support removed - use EXPO_PUBLIC_DOMAIN or environment-specific domains
+  // Support for platform-specific proxy removed - use EXPO_PUBLIC_DOMAIN or environment-specific domains
   if (process.env.EXPO_PUBLIC_DOMAIN) {
     return stripProtocol(process.env.EXPO_PUBLIC_DOMAIN);
   }

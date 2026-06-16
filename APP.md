@@ -151,11 +151,11 @@ workspace/
 9. **CSV Import** — SuperAdmin can bulk-import students, mess allocation, hostel assignments; download templates.
 10. **PDF Export** — Server-side pdfkit PDFs for students, attendance, activity logs, full report.
 
-## Replit Migration Notes
+## Migration Notes
 
 - **expo-router@6 / @expo/router-server@55 shim**: `expo@55` pulls in `@expo/router-server@55.0.11` which requires `expo-router/internal/routing` and `expo-router/internal/testing` — both missing from `expo-router@6.0.x`. A `postinstall` script at `scripts/patch-expo-router.js` creates these shims automatically after `pnpm install`.
-- **Database**: Now uses Replit's built-in PostgreSQL via `DATABASE_URL` secret. Migrated from Supabase.
-- **CI mode**: Mobile runs with `CI=1` so Metro disables watch mode (required for Replit).
+- **Database**: The project expects a `DATABASE_URL` environment variable for PostgreSQL. If your hosting provider auto-provisions a database, set `DATABASE_URL` accordingly. Migrated from Supabase in earlier development.
+- **CI mode**: Mobile runs with `CI=1` so Metro disables watch mode in CI/headless environments.
 - **React Native DevTools system libs**: The `@react-native/debugger-shell` binary (Chromium-based) requires these Nix system packages to start Metro during production builds: `glib`, `nspr`, `nss`, `atk`, `cups`, `expat`, `libdrm`, `pango`, `cairo`, `dbus`, `alsa-lib`, `xorg.libX11`, `xorg.libXcomposite`, `xorg.libXdamage`, `xorg.libXext`, `xorg.libXfixes`, `xorg.libXrandr`, `xorg.libxcb`, `libxkbcommon`, `mesa`. Missing any of these causes `Metro timeout` during the mobile build.
 
 ## Deployed URLs
@@ -190,7 +190,7 @@ Proxies `/api` → `localhost:8080`
 
 ## Environment Variables
 
-- `DATABASE_URL` — Replit built-in PostgreSQL (auto-provisioned, managed by Replit)
+- `DATABASE_URL` — PostgreSQL connection string (set via environment/secret; may be auto-provisioned by your host)
 - `JWT_SECRET` — JWT signing secret
 - `PORT` — API server port (set to 8080)
 - `AUTO_SEED` — Set to `"true"` to auto-seed demo accounts on startup

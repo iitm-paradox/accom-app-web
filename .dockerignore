@@ -12,7 +12,6 @@ artifacts/mockup-sandbox
 
 # Environment & Build
 .env*
-.replit
 .local
 attached_assets
 RAILWAY_DEPLOY.md

@@ -23,7 +23,7 @@ Made by **Kartik Chilkoti**
 
 ### Step-by-step
 
-1. Open the **Expo Go (Tunnel)** workflow in Replit (or run locally):
+1. Start the **Expo Go (Tunnel)** workflow (or run locally):
    ```bash
    cd artifacts/mobile
    EXPO_PUBLIC_API_URL=https://campusops-api-production.up.railway.app/api \

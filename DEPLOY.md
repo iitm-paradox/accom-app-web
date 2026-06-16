@@ -178,9 +178,9 @@ Use this to test the mobile app live on your phone in under 2 minutes.
 
 The tunnel workflow is configured with:
 ```
-EXPO_PUBLIC_API_URL=https://$REPLIT_DEV_DOMAIN/api
+EXPO_PUBLIC_API_URL=https://$DEV_HOSTNAME/api
 ```
-This points to your Replit backend via the web admin proxy (no Render required for testing).
+This points to your development backend (or a host-provided proxy) for quick testing.
 
 ### Demo accounts (all password `123456`)
 
@@ -206,10 +206,10 @@ Use this to create a real installable app for Android or iOS.
 ### Prerequisites
 
 ```bash
-# EAS CLI is pre-installed in this Replit via Nix
+# EAS CLI may be pre-installed in some Nix-based environments
 eas --version
 
-# Log in to your Expo account (account: sportifykartik)
+# Log in to your Expo account
 eas login
 ```
 
@@ -308,7 +308,7 @@ Change the `EXPO_PUBLIC_API_URL` in all three build profiles:
 
 Then rebuild with `eas build`.
 
-For Expo Go in Replit (without rebuilding), set `EXPO_PUBLIC_API_URL` in Replit Secrets — the Expo Go workflow picks it up on restart.
+For Expo Go (without rebuilding), set `EXPO_PUBLIC_API_URL` in your environment/secrets — the Expo Go workflow or your host's environment will pick it up on restart.
 
 ---
 
@@ -331,13 +331,13 @@ For Expo Go in Replit (without rebuilding), set `EXPO_PUBLIC_API_URL` in Replit 
 |---|---|---|
 | `EXPO_PUBLIC_API_URL` | `eas.json` build env | Backend API URL e.g. `https://accom-iitm26.onrender.com/api` |
 
-### Replit (Development)
+### Development (Local / Hosted)
 
 | Variable | Where | Description |
 |---|---|---|
-| `DATABASE_URL` | Replit Secrets | Auto-provisioned by Replit PostgreSQL |
-| `JWT_SECRET` | Replit Secrets | Set via Replit Secrets panel |
-| `EXPO_PUBLIC_API_URL` | Expo workflow | Set dynamically via `$REPLIT_DEV_DOMAIN` in workflow command |
+| `DATABASE_URL` | Secrets / Environment | PostgreSQL connection string or auto-provisioned DB by your host |
+| `JWT_SECRET` | Secrets / Environment | Set via your host or environment variables panel |
+| `EXPO_PUBLIC_API_URL` | Build / Workflow env | Set to your backend API (or override during Expo workflows) |
 
 ---
 
@@ -399,7 +399,7 @@ Set `SEED_REAL_DATA=true` and `AUTO_SEED=true` in Render env → Save → **Manu
 After first boot with data, set both back to `false`.
 
 ### Expo Go shows white screen
-The Expo Go tunnel isn't running. In Replit, start the **"Expo Go (Tunnel)"** workflow and wait for the QR code to appear in the terminal.
+The Expo Go tunnel isn't running. Start the **"Expo Go (Tunnel)"** workflow (or run `expo start --tunnel` locally) and wait for the QR code to appear in the terminal.
 
 ### Expo Go "Login Failed" error
 The API URL is wrong or the backend is down. Check:
@@ -408,7 +408,7 @@ The API URL is wrong or the backend is down. Check:
 3. If health returns `{"status":"ok"}` but login fails → wrong credentials or empty DB
 
 ### JWT errors / sessions breaking after restart
-`JWT_SECRET` is not set or changed between restarts. Set it as a **stable Replit Secret** (not a shared env var) — it must be the same value every time the backend starts.
+`JWT_SECRET` is not set or changed between restarts. Set it as a stable secret in your host or environment (not a transient shared env var) — it must be the same value every time the backend starts.
 
 ### Mobile app connects to wrong backend
 Check `artifacts/mobile/eas.json` — all three build profiles must have `EXPO_PUBLIC_API_URL` pointing to the correct deployed URL.
